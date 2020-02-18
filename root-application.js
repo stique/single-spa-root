@@ -28,19 +28,19 @@ function showWhenAnyOf(routes) {
 
 singleSpa.registerApplication(
   'header',
-  () => import('header-app'),
+  () => import('single-spa-header-app'),
   showAlways(),
 );
 
 singleSpa.registerApplication(
   'filters',
-  () => import('filters-app'),
+  () => import('single-spa-filters-app'),
   showAlways(),
 );
 
 singleSpa.registerApplication(
   'services',
-  () => import('services-app'),
+  () => import('single-spa-services-app'),
   showWhenAnyOf(['/']),
 );
 
