@@ -2,58 +2,46 @@
 import * as singleSpa from 'single-spa';
 import 'zone.js';
 
+function showAlways() {
+  return function () {
+    return true;
+  };
+}
+
 function showWhenAnyOf(routes) {
   return function (location) {
     return routes.some((route) => location.pathname === route);
   };
 }
 
-function showWhenPrefix(routes) {
-  return function (location) {
-    return routes.some((route) => location.pathname.startsWith(route));
-  };
-}
+// function showWhenPrefix(routes) {
+//   return function (location) {
+//     return routes.some((route) => location.pathname.startsWith(route));
+//   };
+// }
 
-function showExcept(routes) {
-  return function (location) {
-    return routes.every((route) => location.pathname !== route);
-  };
-}
+// function showExcept(routes) {
+//   return function (location) {
+//     return routes.every((route) => location.pathname !== route);
+//   };
+// }
 
 singleSpa.registerApplication(
-  'login',
-  () => import('single-spa-auth-app'),
-  showWhenAnyOf(['/login']),
+  'header',
+  () => import('header-app'),
+  showAlways(),
 );
 
 singleSpa.registerApplication(
-  'layout',
-  () => import('single-spa-layout-app'),
-  showExcept(['/login']),
+  'filters',
+  () => import('filters-app'),
+  showAlways(),
 );
 
 singleSpa.registerApplication(
-  'home',
-  () => import('single-spa-home-app'),
+  'services',
+  () => import('services-app'),
   showWhenAnyOf(['/']),
-);
-
-singleSpa.registerApplication(
-  'angular',
-  () => import('single-spa-angular-app'),
-  showWhenPrefix(['/angular']),
-);
-
-singleSpa.registerApplication(
-  'vue',
-  () => import('single-spa-vue-app'),
-  showWhenPrefix(['/vue']),
-);
-
-singleSpa.registerApplication(
-  'react',
-  () => import('single-spa-react-app'),
-  showWhenPrefix(['/react']),
 );
 
 singleSpa.start();
