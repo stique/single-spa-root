@@ -54,7 +54,7 @@ module.exports = {
     }),
   ],
   devtool: 'source-map',
-  externals: [],
+  externals: {vue: 'Vue', 'vue-router': 'VueRouter'},
   devServer: {
     historyApiFallback: true,
     writeToDisk: true,
